@@ -8,7 +8,8 @@ class Consultas:
 
 	#& Method that connects to the db: 'quinielas'
 
-	def connectionDB(self):
+	@staticmethod		#! States that the method is static : Solve typeError for arguments,methods without 'self'
+	def connectionDB():
 		conn= None
 		databasename = 'quinielas'
 		user= 'apolorx'
