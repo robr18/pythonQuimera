@@ -3,6 +3,8 @@ from mysql.connector import Error
 
 class Consultas:
 
+	conn = mysql.connector.connect()
+
 	def __init__(self):
     		self.connectionDB()
 
@@ -10,7 +12,6 @@ class Consultas:
 
 	@staticmethod		#! States that the method is static : Solve typeError for arguments,methods without 'self'
 	def connectionDB():
-		conn= None
 		databasename = 'quinielas'
 		user= 'apolorx'
 		password = 'f3b0ap0110'
@@ -21,8 +22,16 @@ class Consultas:
 				return print("Connected to BD")
 		except Error as e:
 			return print(e)
-		conn.close()
+
+	#& Method that finish the connection
+	@staticmethod
+	def closeDB():
+    		conn.close()
+
+	@staticmethod
+	def returnResulsetStatistics():
 
 class tools:
 
 	c=Consultas()
+
