@@ -12,7 +12,7 @@ conn = mysql.connector.connect(
 
 
 # METHOD: Methot that returns the probability of an event, given two parameters (order and result)
-def StatisticsOfIndividualMatch(order,result):
+def ProbabilityOfIndividualMatch(order,result):
 
 		# SECTION: MySQL section: Matching the conditions and getting the total of cases
 		cursor = conn.cursor()	 #^ Definition of cursor
@@ -28,14 +28,14 @@ def StatisticsOfIndividualMatch(order,result):
 		events_happ= result_condition[0]
 
 		total_r =total_fields[0]
-  
+
 		#^ Obtaining the % of an event happening
 		percentage_happenning = events_happ/total_r
 
 		return float("%.17f"%percentage_happenning)
 
 
-#METHOD: Fill the table probindex with the stats of all the match's
+#METHOD Fill the table probindex with the stats of all the match's
 #! EXECUTE ONLY ONCE IF TABLE 'probindex' is not filled
 #REVIEW: Code that the method also creates the table probindex if it's not created
 def insertIntoIndex():
@@ -56,7 +56,7 @@ def insertIntoIndex():
 					conn.rollback()
 			order+=1
 
-#print(StatisticsOfIndividualMatch("1","0"))
+#print(ProbabilityOfIndividualMatch("1","0"))
 
 """
 	#Statements to test the resulset of a querie
