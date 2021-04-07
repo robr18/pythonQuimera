@@ -1,55 +1,42 @@
 import mysql.connector
 from mysql.connector import Error
 
-class Consultas:
+# REVIEW: Change this code to get the user and password from an external file and add it to .gitignore
 
-	#conn = mysql.connector.connect()
- 
-	# ^  Comentario temporal
-	#* Metodo elimindo para ver si funcionan los metodos
+conn = mysql.connector.connect(
+	host = "localhost",
+	user = "apolorx",
+	password = "J0v3s4turn10-",
+	database = "quinielas"
+)
 
-	"""def __init__(self):
-    		self.connectionDB()"""
 
-	#& Method that connects to the db: 'quinielas'
+# NOTE: Methot that returns the probability of an event, given two parameters (order and result)
+def StatisticsOfIndividualResults(order,result):
 
-	#@staticmethod		#! States that the method is static : Solve typeError for arguments,methods without 'self'
-	def connectionDB(self):
-		databasename = 'quinielas'
-		user= 'apolorx'
-		password = 'J0v3s4turn10-'
-		host = 'localhost'
-		try:
-			conn = mysql.connector.connect(user=user,password=password,host=host,database=databasename)
-			return conn
-		except Error as e:
-			return print(e)
+		# SECTION: MySQL section: Matching the conditions and getting the total of cases
+		cursor = conn.cursor()	 #^ Definition of cursor
+		querie = "SELECT COUNT(idjorna) FROM partidos WHERE ordenJornada="+order+" AND resultado="+result	#^ Querie that returns the numbers of jornadas that matches																#^ the conditions
+		cursor.execute(querie)	#^ Execution
+		result_condition = cursor.fetchone()	#^ Return a resultset with the querie
+		querie_total = "SELECT COUNT(distinct idjorna) from partidos"
+		cursor.execute(querie_total)
+		total_fields= cursor.fetchone()
 
-	#& Method that finish the connection
-	#@staticmethod
-	def closeDB(self):
-    		conn.close()
+		# SECTION: Statistical computing
+		#! Parsing the total of cases and the matches that we got above
+		events_happ= result_condition[0]
 
-	#@staticmethod
-	def returnResulsetStatistics(self):
+		total_r =total_fields[0]
+  
+		#^ Obtaining the % of an event happening
+		percentage_happenning = events_happ/total_r
 
-			#Generates the connection to the database
+		return float("%.17f"%percentage_happenning)
 
-			connec=self.connectionDB
-			cursor = connec.cursor()
-			cursor.execute("SELECT * FROM partidos")
-			resultados = cursor.fetchall()
-   
-			for x in resultados:
-				print(x)
-    
-			connec.close()
-   
-	
- # todo: Comentarios temporales para probrar los metodos 
-class tools:
+#print(StatisticsOfIndividualResults("1","0"))
 
-	c=Consultas()
- 
-	c.returnResulsetStatistics()
-
+"""
+	#Statements to test the resulset of a querie
+for x in StatisticsOfIndividualResults("1","0"):
+    print(x)	"""
