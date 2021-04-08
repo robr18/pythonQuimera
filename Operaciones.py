@@ -65,7 +65,6 @@ def getIdJornada(order,result):
 		id_list=cursor.fetchall()
 		return parseList(id_list)
 
-#FIXME: Parse the ids from id_list, get rid of the shitty characters
 #METHOD Iterates a list of ids with two parameters only
 def IterateTroughList(id_list,order,result):
 		list_temp=[]
@@ -75,9 +74,10 @@ def IterateTroughList(id_list,order,result):
 			cursor.execute(querie)
 			rs=cursor.fetchone()
 			if rs:
-				list_temp.append(string)
+				list_temp.append(rs[0])
 		return 	list_temp
 
+#METHOD Returns a list of ids that match multiple conditions
 def getProbability(order,result):
 
 		index=0
@@ -93,6 +93,7 @@ def getProbability(order,result):
 
 		return id_list
 
+#METHOD: Parse a list for getIndJornada()
 def parseList(lista):
 		listat= list(lista)
 		lista_parse=[]
@@ -100,18 +101,18 @@ def parseList(lista):
 				lista_parse.append(parseString(x))
 		return lista_parse
 
+#METHOD: Parses a string from characters that generates errors from the fetchall() method of mysql
 def parseString(string):
-		temp=re.sub(r'\(|\)|\'|,',"",string)
+		temp=re.sub(r'\(|\)|\'|,',"",str(string))
 		return temp
 
-
-
-print(parseString("('AP1218',)"))
-
-for x in getIdJornada(1,1):
-    print(x)
-
 """
+def showJorna(id_list):
+    
+    	for x in id_list:
+			"""
+
+
 	#Statements to test the resulset of a querie
-for x in getProbability([1,3],[1,1]):
-    print(x)"""
+for x in getProbability([5,2,1,4],[1,2,1,1]):
+    print(x)
