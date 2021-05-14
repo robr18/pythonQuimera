@@ -114,5 +114,5 @@ def showJorna(id_list):
 
 
 	#Statements to test the resulset of a querie
-for x in getProbability([5,2,1,4],[1,2,1,1]):
+for x in getProbability([5,2,1,4,6],[1,2,1,1,2]):
     print(x)
