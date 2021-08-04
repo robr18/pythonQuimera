@@ -35,7 +35,7 @@ def ProbabilityOfIndividualMatch(order,result):
 
 		return float("%.17f"%percentage_happenning)
 
-
+#Prueba
 #METHOD Fill the table probindex with the stats of all the match's
 #! EXECUTE ONLY ONCE IF TABLE 'probindex' is not filled
 #REVIEW: Code that the method also creates the table probindex if it's not created
@@ -114,5 +114,5 @@ def showJorna(id_list):
 
 
 	#Statements to test the resulset of a querie
-for x in getProbability([5,2,1,4,6],[1,2,1,1,2]):
+for x in getProbability([2,5,6,8],[2,1,1,2]):
     print(x)
